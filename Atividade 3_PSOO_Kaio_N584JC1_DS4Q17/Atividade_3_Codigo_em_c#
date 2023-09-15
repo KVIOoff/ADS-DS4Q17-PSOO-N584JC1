@@ -1,0 +1,122 @@
+Codigo
+
+using System;
+using System.Collections.Generic;
+
+// Classe Livro
+public class Livro
+{
+    public string Título { get; set; }
+    public string Autor { get; set; }
+    public string ISBN { get; set; }
+
+    public Livro(string título, string autor, string isbn)
+    {
+        Título = título;
+        Autor = autor;
+        ISBN = isbn;
+    }
+
+    public string GetTítulo()
+    {
+        return Título;
+    }
+
+    public string GetAutor()
+    {
+        return Autor;
+    }
+
+    public string GetISBN()
+    {
+        return ISBN;
+    }
+}
+
+// Classe Usuário
+public class Usuário
+{
+    public string Nome { get; set; }
+    public int ID { get; set; }
+
+    public Usuário(string nome, int id)
+    {
+        Nome = nome;
+        ID = id;
+    }
+
+    public string GetNome()
+    {
+        return Nome;
+    }
+
+    public int GetID()
+    {
+        return ID;
+    }
+}
+
+// Classe Biblioteca
+public class Biblioteca
+{
+    private List<Livro> LivrosDisponíveis { get; set; }
+    private List<Usuário> UsuáriosRegistrados { get; set; }
+
+    public Biblioteca()
+    {
+        LivrosDisponíveis = new List<Livro>();
+        UsuáriosRegistrados = new List<Usuário>();
+    }
+
+    public void AdicionarLivro(Livro livro)
+    {
+        LivrosDisponíveis.Add(livro);
+    }
+
+    public void RemoverLivro(Livro livro)
+    {
+        LivrosDisponíveis.Remove(livro);
+    }
+
+    public void RegistrarUsuário(Usuário usuário)
+    {
+        UsuáriosRegistrados.Add(usuário);
+    }
+
+    public void DesregistrarUsuário(Usuário usuário)
+    {
+        UsuáriosRegistrados.Remove(usuário);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Exemplo de uso das classes
+        Biblioteca biblioteca = new Biblioteca();
+
+        Livro livro1 = new Livro("Aventuras de Sherlock Holmes", "Arthur Conan Doyle", "978-3-16-148410-0");
+        Livro livro2 = new Livro("Dom Quixote", "Miguel de Cervantes", "978-3-16-148411-7");
+
+        Usuário usuário1 = new Usuário("Alice", 1);
+        Usuário usuário2 = new Usuário("Bob", 2);
+
+        biblioteca.AdicionarLivro(livro1);
+        biblioteca.AdicionarLivro(livro2);
+        biblioteca.RegistrarUsuário(usuário1);
+        biblioteca.RegistrarUsuário(usuário2);
+
+        Console.WriteLine("Livros disponíveis na biblioteca:");
+        foreach (var livro in biblioteca.LivrosDisponíveis)
+        {
+            Console.WriteLine($"{livro.GetTítulo()} - {livro.GetAutor()} (ISBN: {livro.GetISBN()})");
+        }
+
+        Console.WriteLine("\nUsuários registrados na biblioteca:");
+        foreach (var usuário in biblioteca.UsuáriosRegistrados)
+        {
+            Console.WriteLine($"{usuário.GetNome()} (ID: {usuário.GetID()})");
+        }
+    }
+}
